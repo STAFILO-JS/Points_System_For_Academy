@@ -1,15 +1,18 @@
+version: "3.9"
+
 services:
   db:
-    image: postgres:16
+    image: postgres:18
     container_name: teacher_portal_db
-    environment:
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: stafilo
-      POSTGRES_DB: teacher_portal
+    restart: always
     ports:
-      - "5433:5432"
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
 volumes:
-  pgdata:
+  postgres_data:
