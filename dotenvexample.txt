@@ -1,9 +1,9 @@
-PORT=3000
-NODE_ENV=development
+POSTGRES_USER=app
+POSTGRES_PASSWORD=change_me
+POSTGRES_DB=teacher_portal
+POSTGRES_PORT=5433
 
-DATABASE_URL="postgresql://app:YOUR_PASSWORD@localhost:5433/teacher_portal"
+DATABASE_URL=postgresql://app:change_me@localhost:5433/teacher_portal
 
-JWT_ACCESS_SECRET="replace-me"
-JWT_REFRESH_SECRET="replace-me"
-ACCESS_TOKEN_TTL=15m
-REFRESH_TOKEN_TTL=7d
+JWT_ACCESS_SECRET=replace_me
+JWT_REFRESH_SECRET=replace_me
