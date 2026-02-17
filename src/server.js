@@ -15,10 +15,6 @@ const adminRoutes = require("./routes.admin");
 const meRoutes = require("./routes.me");
 
 const app = express();
-
-// ========================
-// Middleware
-// ========================
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -31,9 +27,8 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 console.log("API DATABASE_URL =", process.env.DATABASE_URL);
 
-// ========================
+
 // Health Check
-// ========================
 app.get("/health", async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -43,10 +38,6 @@ app.get("/health", async (req, res) => {
     res.status(500).json({ ok: false });
   }
 });
-
-// ========================
-// AUTH LOGIN
-// ========================
 app.post("/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body || {};
@@ -88,32 +79,24 @@ app.post("/auth/login", async (req, res) => {
   }
 });
 
-// ========================
-// Who Am I
-// ========================
+
 app.get("/me", requireAuth, (req, res) => {
   res.json(req.user);
 });
 
-// ========================
-// Routes
-// ========================
+=
 app.use("/admin", adminRoutes);
 app.use("/", meRoutes);
 
-// ========================
-// Global Error Catch
-// ========================
+
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
   res.status(500).json({ error: "Something went wrong" });
 });
 
-// ========================
-// Start Server
-// ========================
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(` Server running at http://localhost:${PORT}`);
 });
