@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academy Portal</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    input, button, select {
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2c2c2c;
+    }
+
+    .card {
+      border: 1px solid #333;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .success {
+      color: #59ff7a;
+    }
+
+    .error {
+      color: #ff5c5c;
+    }
+
+    .muted {
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #222;
+      margin: 14px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #222;
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
+
+  <script src="/app.js" defer></script>
+</head>
+<body>
+
+  <h1>Academy Portal</h1>
+
+  <div class="card">
+    <div class="row" style="justify-content: space-between;">
+      <div>
+        <div>Status: <span id="statusText">Not logged in</span></div>
+        <div class="muted" id="whoText"></div>
+      </div>
+      <div class="row">
+        <button id="refreshBtn">Refresh</button>
+        <button id="logoutBtn">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Login</h2>
+    <div class="row">
+      <input id="emailInput" placeholder="Email" />
+      <input id="passwordInput" type="password" placeholder="Password" />
+      <button id="loginBtn">Login</button>
+    </div>
+    <p id="loginMessage"></p>
+  </div>
+
+  <div class="card hidden" id="teacherPanel">
+    <h2>Teacher Panel</h2>
+    <h3>Students</h3>
+    <div class="row">
+         <button id="loadStudentsBtn">Load Students</button>
+        </div>
+    <div id="studentsContainer"></div>
+
+<hr />
+
+    <h3>Create Student</h3>
+    <div class="row">
+      <input id="studentName" placeholder="Student Name" />
+      <input id="studentEmail" placeholder="Student Email" />
+      <input id="studentPassword" placeholder="Student Password" />
+      <button id="createStudentBtn">Create Student</button>
+    </div>
+    <p id="studentMessage"></p>
+
+    <hr />
+
+    <h3>Create Subject</h3>
+    <div class="row">
+      <input id="subjectName" placeholder="Subject Name (e.g. Math)" />
+      <button id="createSubjectBtn">Create Subject</button>
+      <button id="loadSubjectsBtn">Reload Subjects</button>
+    </div>
+    <p id="subjectMessage"></p>
+
+    <hr />
+
+    <h3>Set Student Points</h3>
+    <div class="row">
+      <input id="scoreStudentId" placeholder="Student ID" />
+      <select id="subjectSelect"></select>
+      <input id="scoreValue" placeholder="Score (number)" />
+      <button id="setScoreBtn">Save Score</button>
+    </div>
+    <p id="scoreMessage"></p>
+  </div>
+
+  <div class="card hidden" id="studentPanel">
+    <h2>Student Panel</h2>
+
+    <div class="row">
+      <button id="loadScoresBtn">Load My Scores</button>
+    </div>
+
+    <div id="scoresContainer"></div>
+  </div>
+
+</body>
+</html>

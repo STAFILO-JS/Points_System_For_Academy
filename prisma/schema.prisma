@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  TEACHER
+  STUDENT
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  scores       Score[]  @relation("StudentScores")
+  messagesSent Message[] @relation("StudentMessages")
+  messagesRecv Message[] @relation("TeacherMessages")
+}
+
+model Subject {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+  scores  Score[]
+}
+
+model Score {
+  id         Int      @id @default(autoincrement())
+  studentId  Int
+  subjectId  Int
+  score      Float
+  updatedAt  DateTime @updatedAt
+
+  student    User     @relation("StudentScores", fields: [studentId], references: [id])
+  subject    Subject  @relation(fields: [subjectId], references: [id])
+
+  @@unique([studentId, subjectId])
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  title      String
+  body       String
+  createdAt  DateTime @default(now())
+  status     String   @default("UNREAD")
+
+  studentId  Int
+  teacherId  Int
+
+  student    User @relation("StudentMessages", fields: [studentId], references: [id])
+  teacher    User @relation("TeacherMessages", fields: [teacherId], references: [id])
+}
